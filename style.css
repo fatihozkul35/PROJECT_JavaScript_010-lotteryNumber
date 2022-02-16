@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  height: 30vh;
+  background: linear-gradient(black, gray);
+}
+.container {
+  height: 70vh;
+  background: linear-gradient(#e66465, #9198e5);
+  font-size: 1em;
+  color: white;
+}
+
+.ball {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: red;
+  /* transform: rotate(60deg);
+  transition: transform 1s; */
+}
+i {
+  color: greenyellow;
+  box-shadow: 4.8em 0 0.3em olive;
+}
