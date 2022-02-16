@@ -9,15 +9,25 @@ button.addEventListener("click", howMuchNumber);
 
 function howMuchNumber() {
   let howMuch = input.value;
-  let numberArrays = [];
+  if (isNaN(howMuch) || howMuch === "") {
+    const warning = document.querySelector(".warning");
+    warning.innerHTML = "Please enter a number...🤬";
+    setTimeout(function () {
+      warning.innerHTML = "";
+    }, 2000);
+    input.value = "";
+  } else {
+    input.value = "";
+    let numberArrays = [];
 
-  for (let i = 0; i < howMuch; i++) {
-    let sixRandomNumbers = createRandomNumber();
-    numberArrays.push(sixRandomNumbers);
+    for (let i = 0; i < howMuch; i++) {
+      let sixRandomNumbers = createRandomNumber();
+      numberArrays.push(sixRandomNumbers);
+    }
+
+    randomNumbersToLocalStorage("lottoNumberPackage", numberArrays);
+    displayBall();
   }
-
-  randomNumbersToLocalStorage("lottoNumberPackage", numberArrays);
-  displayBall();
 }
 
 function createRandomNumber() {
@@ -37,18 +47,14 @@ function displayBall() {
   const data = JSON.parse(localStorage.getItem("lottoNumberPackage"));
   console.log(data);
   let dataNew = data.map(function (e) {
-    // e : ilk array, i = index
-    // <div class="col ball d-flex justify-content-center align-items-center">
-    //   5
-    // </div>;
-
     temporaryData = "";
     for (let i = 0; i < 6; i++) {
       temporaryData += `<div class="col ball d-flex justify-content-center align-items-center">${e[i]}</div>`;
-      //   return `<div class="col ball d-flex justify-content-center align-items-center">${e[i]}</div>`;
     }
     return temporaryData;
   });
   dataNew = dataNew.join("");
   display.innerHTML = dataNew;
+  document.querySelector(".col").style.transform = "rotateX(720deg)";
+  document.querySelector(".col").style.transition = "transform 2s";
 }
