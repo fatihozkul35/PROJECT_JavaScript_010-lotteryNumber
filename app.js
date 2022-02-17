@@ -1,6 +1,8 @@
 const button = document.querySelector(".btn");
 const input = document.querySelector(".input");
-const display = document.querySelector(".display");
+const displayBalls = document.querySelector(".displayBalls");
+const displayLotterys = document.querySelector(".displayLotterys");
+
 //****************?Events part */
 
 button.addEventListener("click", howMuchNumber);
@@ -9,6 +11,8 @@ button.addEventListener("click", howMuchNumber);
 
 function howMuchNumber() {
   let howMuch = input.value;
+  displayBalls.innerHTML = "";
+  displayLotterys.innerHTML = "";
   if (isNaN(howMuch) || howMuch === "") {
     const warning = document.querySelector(".warning");
     warning.innerHTML = "Please enter a number...🤬";
@@ -24,9 +28,9 @@ function howMuchNumber() {
       let sixRandomNumbers = createRandomNumber();
       numberArrays.push(sixRandomNumbers);
     }
-
     randomNumbersToLocalStorage("lottoNumberPackage", numberArrays);
-    displayBall();
+    setTimeout(displayBall(), 5000);
+    displayLotteryNumbers();
   }
 }
 
@@ -43,18 +47,27 @@ function randomNumbersToLocalStorage(k, v) {
   localStorage.setItem(k, JSON.stringify(v));
 }
 
-function displayBall() {
+function displayLotteryNumbers() {
   const data = JSON.parse(localStorage.getItem("lottoNumberPackage"));
   console.log(data);
   let dataNew = data.map(function (e) {
-    temporaryData = "";
-    for (let i = 0; i < 6; i++) {
-      temporaryData += `<div class="col ball d-flex justify-content-center align-items-center">${e[i]}</div>`;
-    }
-    return temporaryData;
+    return `<div class="col ball d-flex justify-content-center align-items-center">${e}</div>`;
   });
   dataNew = dataNew.join("");
-  display.innerHTML = dataNew;
-  document.querySelector(".col").style.transform = "rotateX(720deg)";
-  document.querySelector(".col").style.transition = "transform 2s";
+  displayLotterys.innerHTML = dataNew;
+}
+
+function displayBall() {
+  const dataAt = createRandomNumber();
+  let dataNew = dataAt.map(function (e) {
+    return `<div class="col ball d-flex justify-content-center align-items-center">${e}</div>`;
+  });
+  dataNew = dataNew.join("");
+  displayBalls.innerHTML = dataNew;
+  displayBallSpin();
+}
+
+function displayBallSpin() {
+  document.getElementById("test").style.transform = "rotateX(7200deg)";
+  document.getElementById("test").style.transition = "transform 2s";
 }

@@ -14,14 +14,16 @@
   color: white;
 }
 
-.ball {
+.col {
   width: 100px;
   height: 100px;
   border-radius: 50%;
   background: red;
-  transform: rotateX(720deg);
-  transition: transform 2s;
 }
+/* .container .displayBalls .col {
+  transform: rotateX(7200deg);
+  transition: transform 2s;
+} */
 i {
   color: greenyellow;
   box-shadow: 4.8em 0 0.3em olive;
